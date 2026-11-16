@@ -1,0 +1,20 @@
+---
+- name: Create a user and create file in the users home directory
+  hosts: all
+  tasks:
+    - name: Create a user
+      user:
+        name: anu
+        password: intelliqit
+        home: /tmp/anu
+        shell: /bin/bash
+        comment: "a regular user"
+        uid: 1234
+    - name: Create a file in the users home dir
+      file:
+        name: /tmp/anu/file1
+        state: touch
+        owner: anu
+        group: root
+        mode: 750
+...
