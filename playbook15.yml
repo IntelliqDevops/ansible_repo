@@ -1,0 +1,13 @@
+---
+- name: Install uninstall uograde s/w app using loops
+  hosts: all
+  tasks:
+    - name: Install/uninstall s/w apps
+      apt:
+        name: "{{item.a}}"
+        state: "{{item.b}}"
+        update_cache: "{{item.c}}"
+      loop:
+        - {a: git,b: present,c: no}
+        - {a: tree,b: absent,c: no}
+        - {a: maven,b: latest,c: yes}
