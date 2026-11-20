@@ -1,0 +1,36 @@
+---
+- name: Implementing tags
+  hosts: all
+  tasks:
+    - name: Install apache2
+      apt:
+        name: apache2
+        state: present
+        update_cache: yes
+      tags:
+        - install
+        - apache_install
+        - never
+    - name: Install tomcat10
+      apt:
+        name: tomcat10
+        state: present
+        update_cache: yes
+      tags:
+        - install
+        - tomcat_install
+    - name: Restart apache2
+      service:
+        name: apache2
+        state: restarted
+      tags:
+        - restart
+        - apache_restart
+    - name: Restart tomcat
+      service:
+        name: tomcat10
+        state: restarted
+      tags:
+        - restart
+        - tomcat_restart
+...
