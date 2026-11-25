@@ -1,0 +1,9 @@
+---
+- name: Check apache response on all the servers
+  uri:
+    url: "{{item}}"
+    status_code: 200
+  loop:
+    - http://172.31.30.57
+    - http://172.31.28.14
+...

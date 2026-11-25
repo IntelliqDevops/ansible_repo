@@ -1,0 +1,40 @@
+---
+- name: Configiure apache2/httpd using block and rescue code
+  hosts: all
+  tasks:
+    - block: 
+       - name: Install apache2 using apt on Ubuntu servers
+         apt:
+           name: apache2
+           state: present
+           update_cache: yes
+      rescue:
+        - name: Install httpd using yum on Redhat servers
+          yum:
+            name: httpd
+            state: present
+            update_cache: yes
+    - name: Edit the index.html file
+      copy:
+        content: "Welcome to Intelliq"
+        dest: /var/www/html/index.html
+    - block:
+        - name: Restart apache2 on Ubuntu server
+          service:
+            name: apache2
+            state: restarted
+      rescue:
+        - name: Restart httpd on redhat server
+          service:
+            name: httpd
+            state: restarted
+    - name: Check apache/httpd response on all the servers
+      uri:
+        url: "{{item}}"
+        status_code: 200
+      loop:
+        - http://172.31.45.171
+        - http://172.31.30.57
+        - http://172.31.28.14
+...
+
