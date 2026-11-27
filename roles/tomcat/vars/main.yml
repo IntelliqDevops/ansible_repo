@@ -1,0 +1,19 @@
+---
+pkg1: tomcat10
+pkg2: tomcat10-admin
+state1: present
+cache1: yes
+cache2: no
+
+file1: tomcat-users.xml
+dest1: /etc/tomcat10
+port1: 8080
+port2: 9090
+path1: /etc/tomcat10/server.xml
+seconds: 30
+state2: restarted
+server1: "http://74.235.97.85:9090"
+server2: "http://20.55.40.121:9090"
+status1: 200
+...
+
